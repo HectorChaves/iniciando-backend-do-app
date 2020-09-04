@@ -1,0 +1,25 @@
+date-fns -> biblioteca usada para lidar com datas no javascript tanto no back quanto no front
+
+parseISO - converte string para formato Date do javascript
+
+startOfHour -> utiliza apenas a hora do horário (minutos e segundos zerados)
+
+isEqual -> verifica se duas datas são iguais (mesma data e mesmo horário)
+
+contructor -> inicia variáveis
+super -> equivalente a chamar o contructor da classe pai
+	o super envia parâmetros (como em uma função) para o constructor da classe pai
+
+repositório conexão entre a persistência dos dados e a rota
+
+no repositório podemos, por exemplo, buscar (find), criar (create), deletar
+
+um repositório por model
+
+criado no formato de classe
+
+private -> variável não acessível de fora da classe
+
+public -> acessível de fora da classe
+
+private e public são funções do typescript. não existem no javascript convencional
