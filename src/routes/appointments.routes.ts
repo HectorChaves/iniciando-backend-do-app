@@ -1,40 +1,30 @@
+/* eslint-disable camelcase */
 import { Router } from "express";
+import { getCustomRepository } from "typeorm";
 import { parseISO } from "date-fns";
 import AppointmentsRepository from "../repositories/AppointmentsRepository";
 import CreateAppointmentService from "../services/CreateAppointmentService";
 
 const appointmentsRouter = Router();
 
-const appointmentsRepository = new AppointmentsRepository();
-
-// interface Appointment {
-//     id: string;
-//     provider: string;
-//     date: Date;
-// }
-// não é mais necessário devido ao arquivo Appoimtments.ts na pasta models
-
-// const appointments: Array<Appointment> = [];
-
-appointmentsRouter.get("/", (request, response) => {
-    const appointments = appointmentsRepository.all();
+appointmentsRouter.get("/", async (request, response) => {
+    const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+    const appointments = await appointmentsRepository.find();
 
     return response.json(appointments);
 });
 
-appointmentsRouter.post("/", (request, response) => {
+appointmentsRouter.post("/", async (request, response) => {
     try {
-        const { provider, date } = request.body;
+        const { provider_id, date } = request.body;
 
         const parsedDate = parseISO(date);
 
-        const createAppointment = new CreateAppointmentService(
-            appointmentsRepository,
-        );
+        const createAppointment = new CreateAppointmentService();
 
-        const appointment = createAppointment.execute({
+        const appointment = await createAppointment.execute({
             date: parsedDate,
-            provider,
+            provider_id,
         });
 
         return response.json(appointment);
